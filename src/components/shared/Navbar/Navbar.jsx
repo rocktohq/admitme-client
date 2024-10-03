@@ -37,7 +37,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="flex items-center gap-3 text-lg">{navLinks}</ul>
+          <ul className="flex items-center gap-3 text-lg text-black">{navLinks}</ul>
         </div>
         <div className="navbar-end space-x-2">
           <Link to="/login">

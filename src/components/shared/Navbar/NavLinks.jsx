@@ -29,6 +29,14 @@ const navLinks = (
     <li>
       <NavLink
         className="hover:text-primary hover:underline duration-300"
+        to="/universities"
+      >
+        Universities
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        className="hover:text-primary hover:underline duration-300"
         to="/pricing"
       >
         Pricing
