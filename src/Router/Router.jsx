@@ -7,6 +7,12 @@ import Pricing from "../pages/Pricing/Pricing";
 import About from "../pages/About/About";
 import Dashboard from "../layouts/Dashboard";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import { element } from "prop-types";
+import Users from "../pages/Dashboard/Users/Users";
+import Countries from "../pages/Dashboard/Countries/Countries";
+import Universities from "../pages/Dashboard/Universities/Universities";
+import Courses from "../pages/Dashboard/Courses/Courses";
+import Applications from "../pages/Dashboard/Applications/Applications";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +47,27 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <AdminHome />,
       },
+
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "countries",
+        element: <Countries />,
+      },
+      {
+        path: "universities",
+        element: <Universities />,
+      },
+      {
+        path: "courses",
+        element: <Courses />,
+      },
+      {
+        path: "applications",
+        element: <Applications />,
+      }
     ],
   },
 ]);
