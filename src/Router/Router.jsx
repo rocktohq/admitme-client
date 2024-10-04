@@ -5,6 +5,8 @@ import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
 import Pricing from "../pages/Pricing/Pricing";
 import About from "../pages/About/About";
+import Dashboard from "../layouts/Dashboard";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,17 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <AdminHome />,
       },
     ],
   },
