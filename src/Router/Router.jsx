@@ -13,6 +13,8 @@ import Countries from "../pages/Dashboard/Countries/Countries";
 import Universities from "../pages/Dashboard/Universities/Universities";
 import Courses from "../pages/Dashboard/Courses/Courses";
 import Applications from "../pages/Dashboard/Applications/Applications";
+import SignIn from "../pages/SignIn/SignIn";
+import SignUp from "../pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,11 @@ const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
+      { path: "/signup", element: <SignUp /> },
     ],
   },
   {
@@ -67,7 +74,7 @@ const router = createBrowserRouter([
       {
         path: "applications",
         element: <Applications />,
-      }
+      },
     ],
   },
 ]);

@@ -40,7 +40,7 @@ const Navbar = () => {
           <ul className="flex items-center gap-3 text-lg text-black">{navLinks}</ul>
         </div>
         <div className="navbar-end space-x-2">
-          <Link to="/login">
+          <Link to="/signin">
             <Button text={"Apply Now"} primary />
           </Link>
         </div>
