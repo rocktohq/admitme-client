@@ -14,7 +14,7 @@ import Universities from "../pages/Dashboard/Universities/Universities";
 import Courses from "../pages/Dashboard/Courses/Courses";
 import Applications from "../pages/Dashboard/Applications/Applications";
 import SignIn from "../pages/SignIn/SignIn";
-import SignUp from "../pages/SignUp";
+import SignUp from "../pages/SignUp/SignUp";
 
 const router = createBrowserRouter([
   {
