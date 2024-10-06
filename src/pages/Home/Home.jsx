@@ -22,7 +22,7 @@ const Home = () => {
   window.addEventListener("scroll", changeColor);
 
   return (
-    <main className={color && "mt-10 md:mt-16 lg:mt-20"}>
+    <main className={color ? "mt-10 md:mt-16 lg:mt-20" : ""}>
       {/* Banner */}
       <Separator bg>
         <Banner centeredTitle={false} />

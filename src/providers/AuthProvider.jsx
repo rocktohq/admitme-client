@@ -1,13 +1,16 @@
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import {
-  createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  sendPasswordResetEmail,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
   updateProfile,
 } from "firebase/auth";
-import { createContext, useState } from "react";
+import { auth } from "../config/firebase.config";
 import useAxiosPublic from "../hooks/useAxiosPublic";
-import auth from "../config/firebase.config";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -18,24 +21,16 @@ const AuthProvider = ({ children }) => {
   const axiosPublic = useAxiosPublic();
 
   // SignIn with Google
-  const googleSignIn = (auth, googleProvider) => {
-    setLoading(true);
+  const googleSignIn = () => {
     return signInWithPopup(auth, googleProvider);
   };
-
   // SignUp with Email and Password
-  const signUpUser = (auth, email, password) => {
+  const signUpUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // SignIn with Email and Password
-  const signInUser = (auth, email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  //   Update User
+  // Update Profile
   const updateUserProfile = (name, photo) => {
     setLoading(true);
     return updateProfile(auth.currentUser, {
@@ -44,32 +39,70 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // Reset Password
-  const resetPassword = (auth) => {
+  // SignIn with Email and Password
+  const signInUser = (email, password) => {
     setLoading(true);
-    return sendPasswordResetEmail(auth, email);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // SignOut User
-  const signOutUser = (auth) => {
+  // Sign Out User
+  const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-  // Authentication Tools
-  const authTools = {
+  // On UserState Change
+  useEffect(() => {
+    setLoading(true);
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
+
+      // * If user is loggedIn then create a new token
+      if (currentUser) {
+        axiosPublic
+          .post("/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then(() => {
+            setLoading(false);
+          });
+      } else {
+        axiosPublic
+          .post("/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((err) => {
+            console.log(err.data);
+            setLoading(false);
+          });
+      }
+
+      return () => {
+        unSubscribe();
+      };
+    });
+  }, [axiosPublic, user?.email]);
+
+  // Auth Info
+  const authInfo = {
     user,
     loading,
     googleSignIn,
     signUpUser,
-    signInUser,
     updateUserProfile,
+    signInUser,
     signOutUser,
   };
 
   return (
-    <AuthContext.Provider value={authTools}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 
 export default AuthProvider;
+
+AuthProvider.propTypes = {
+  children: PropTypes.node,
+};
