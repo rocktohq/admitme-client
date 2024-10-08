@@ -5,6 +5,8 @@ import navLinks from "./NavLinks";
 import useAuth from "../../../hooks/useAuth";
 import defaultAvatar from "../../../assets/images/signImage.png";
 import toast from "react-hot-toast";
+import { MdDashboard } from "react-icons/md";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, signOutUser, loading } = useAuth();
@@ -48,7 +50,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/">
-            <img src={logo} alt="Logo" />
+            <img src={logo} alt="Logo" className="w-10 h-10" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -59,7 +61,7 @@ const Navbar = () => {
         <div className="navbar-end space-x-2">
           {user?.email ? (
             <>
-              <div className="dropdown">
+              <div className="dropdown dropdown-end">
                 <button className="button button-primary button-sm rounded-full">
                   <img
                     src={user?.photoURL || defaultAvatar}
@@ -67,12 +69,17 @@ const Navbar = () => {
                     className="w-8 h-8 rounded-full"
                   />
                 </button>
-                <ul className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <ul className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded w-52 h-fit">
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/dashboard">
+                      <MdDashboard /> Dashboard
+                    </Link>
                   </li>
                   <li>
-                    <button onClick={handleSignOut}>Sign Out</button> Hi
+                    <button onClick={handleSignOut}>
+                      <FaSignOutAlt />
+                      Sign Out
+                    </button>
                   </li>
                 </ul>
               </div>
