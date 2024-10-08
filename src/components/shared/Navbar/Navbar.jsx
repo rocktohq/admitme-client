@@ -9,7 +9,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, signOutUser, loading } = useAuth();
+  const { user, signOutUser } = useAuth();
 
   const handleSignOut = async () => {
     const toastId = toast.loading("Signing out...");

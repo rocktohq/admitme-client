@@ -6,8 +6,6 @@ import Services from "../pages/Services/Services";
 import Pricing from "../pages/Pricing/Pricing";
 import About from "../pages/About/About";
 import Dashboard from "../layouts/Dashboard";
-import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
-import { element } from "prop-types";
 import Users from "../pages/Dashboard/Users/Users";
 import Countries from "../pages/Dashboard/Countries/Countries";
 import Universities from "../pages/Dashboard/Universities/Universities";
@@ -17,6 +15,8 @@ import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import UserApplications from "../pages/Dashboard/UserApplications/UserApplications";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <AdminHome />,
+        element: <DashboardHome />,
       },
 
       {
@@ -100,6 +100,10 @@ const router = createBrowserRouter([
             <Applications />
           </AdminRoute>
         ),
+      },
+      {
+        path: "user/applications",
+        element: <UserApplications />,
       },
     ],
   },
