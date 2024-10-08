@@ -1,47 +1,51 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { MdDashboard } from "react-icons/md";
+import { FaHome, FaSignOutAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const AdminNavbar = () => {
+  const { user, signOutUser } = useAuth();
+  const handleSignOut = async () => {
+    await signOutUser().then(() => {
+      toast.success("Sign out successful");
+    });
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-      <Link to={"/"} className="btn btn-ghost text-xl">AdmitMe</Link>
+        <Link to="/">
+          <h1 className="text-xl text-gray-800 flex justify-center items-center gap-1"><FaHome/> Home</h1>
+        </Link>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
+            className="input input-bordered w-24 md:w-auto rounded focus:outline-none"
           />
         </div>
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
+          <button className="button button-primary button-sm rounded-full">
+            <img
+              src={user?.photoURL || defaultAvatar}
+              alt="Avatar"
+              className="w-8 h-8 rounded-full"
+            />
+          </button>
+          <ul className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded w-52 h-fit">
             <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
+              <Link to="/dashboard">
+                <MdDashboard /> Dashboard
+              </Link>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
+              <button onClick={handleSignOut}>
+                <FaSignOutAlt />
+                Sign Out
+              </button>
             </li>
           </ul>
         </div>

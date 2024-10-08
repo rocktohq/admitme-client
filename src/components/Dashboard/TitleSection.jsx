@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import logo from "../../assets/icons/applyhere.png";
+import { Link } from "react-router-dom";
 
 const TitleSection = ({ open }) => {
   return (
-    <div className="mb-3 border-b border-slate-300 pb-3">
+    <Link to={"/dashboard"} className="mb-3 border-b border-slate-300 pb-3">
       <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
         <div className="flex items-center gap-2">
           <figure>
@@ -24,7 +25,7 @@ const TitleSection = ({ open }) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

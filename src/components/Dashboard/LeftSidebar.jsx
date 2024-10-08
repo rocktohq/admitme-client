@@ -8,11 +8,14 @@ import { useState } from "react";
 import NavItem from "./NavItem";
 import ToggleClose from "./ToggleClose";
 import TitleSection from "./TitleSection";
+import useAdmin from "../../hooks/useAdmin";
+import Loader from "../Loader/Loader";
 
 const LeftSidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
-
+  const { isAdmin, isAdminLoading } = useAdmin();
+  
   return (
     <motion.nav
       layout
@@ -23,57 +26,78 @@ const LeftSidebar = () => {
     >
       <TitleSection open={open} />
       <ToggleClose open={open} setOpen={setOpen} />
-      <div className="space-y-1">
-        <NavItem
-          Icon={FiHome}
-          title="Dashboard"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          to="/dashboard"
-        />
-        <NavItem
-          Icon={FaGlobe}
-          title="Countries"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          notifs={3}
-          to="/dashboard/countries"
-        />
-        <NavItem
-          Icon={FaSchool}
-          title="Universities"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          to="/dashboard/universities"
-        />
-        <NavItem
-          Icon={FaBook}
-          title="Courses"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          to="/dashboard/courses"
-        />
-        <NavItem
-          Icon={FiUsers}
-          title="Users"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          to="/dashboard/users"
-        />
-        <NavItem
-          Icon={LuFileStack}
-          title="Applications"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          to="/dashboard/applications"
-        />
-      </div>
+      {isAdmin ? (
+        <div className="space-y-1">
+          <NavItem
+            Icon={FiHome}
+            title="Dashboard"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard"
+          />
+          <NavItem
+            Icon={FaGlobe}
+            title="Countries"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            notifs={3}
+            to="/dashboard/countries"
+          />
+          <NavItem
+            Icon={FaSchool}
+            title="Universities"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard/universities"
+          />
+          <NavItem
+            Icon={FaBook}
+            title="Courses"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard/courses"
+          />
+          <NavItem
+            Icon={FiUsers}
+            title="Users"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard/users"
+          />
+          <NavItem
+            Icon={LuFileStack}
+            title="Applications"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard/applications"
+          />
+        </div>
+      ) : (
+        <div className="space-y-1">
+          <NavItem
+            Icon={FiHome}
+            title="Dashboard"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard"
+          />
+          <NavItem
+            Icon={LuFileStack}
+            title="My Applications"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            to="/dashboard/user/applications"
+          />
+        </div>
+      )}
     </motion.nav>
   );
 };

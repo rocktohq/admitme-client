@@ -6,8 +6,6 @@ import Services from "../pages/Services/Services";
 import Pricing from "../pages/Pricing/Pricing";
 import About from "../pages/About/About";
 import Dashboard from "../layouts/Dashboard";
-import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
-import { element } from "prop-types";
 import Users from "../pages/Dashboard/Users/Users";
 import Countries from "../pages/Dashboard/Countries/Countries";
 import Universities from "../pages/Dashboard/Universities/Universities";
@@ -15,6 +13,10 @@ import Courses from "../pages/Dashboard/Courses/Courses";
 import Applications from "../pages/Dashboard/Applications/Applications";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import UserApplications from "../pages/Dashboard/UserApplications/UserApplications";
 
 const router = createBrowserRouter([
   {
@@ -47,33 +49,61 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/dashboard",
-        element: <AdminHome />,
+        element: <DashboardHome />,
       },
 
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <AdminRoute>
+            <Users />
+          </AdminRoute>
+        ),
       },
       {
         path: "countries",
-        element: <Countries />,
+        element: (
+          <AdminRoute>
+            <Countries />
+          </AdminRoute>
+        ),
       },
       {
         path: "universities",
-        element: <Universities />,
+        element: (
+          <AdminRoute>
+            <Universities />
+          </AdminRoute>
+        ),
       },
       {
         path: "courses",
-        element: <Courses />,
+        element: (
+          <AdminRoute>
+            <Courses />
+          </AdminRoute>
+        ),
       },
       {
         path: "applications",
-        element: <Applications />,
+        element: (
+          <AdminRoute>
+            <Applications />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "user/applications",
+        element: <UserApplications />,
       },
     ],
   },
