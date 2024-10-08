@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
           .post("/jwt", loggedUser, {
             withCredentials: true,
           })
-          .then(() => {
+          .then((res) => {
             setLoading(false);
           });
       } else {
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
             withCredentials: true,
           })
           .then((err) => {
-            console.log(err.data);
+            console.log("Logout error: ", err.data);
             setLoading(false);
           });
       }
