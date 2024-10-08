@@ -25,7 +25,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="navbar-start">
-          <div className="dropdown">
+          <div className="dropdown dropdown-start">
             <label tabIndex={0} className="lg:hidden mr-1 cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ const Navbar = () => {
 
             <ul
               tabIndex={0}
-              className="menu menu-md dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded w-80 uppercase font-semibold space-y-2"
             >
               {navLinks}
             </ul>
@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="flex items-center gap-3 text-lg text-black">
+          <ul className="flex items-center gap-3 text-md text-black uppercase">
             {navLinks}
           </ul>
         </div>

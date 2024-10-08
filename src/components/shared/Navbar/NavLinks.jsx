@@ -4,7 +4,7 @@ const navLinks = (
   <>
     <li>
       <NavLink
-        className="hover:text-primary hover:underline duration-300"
+        className="hover:underline duration-300"
         to="/"
       >
         Home
@@ -12,7 +12,7 @@ const navLinks = (
     </li>
     <li>
       <NavLink
-        className="hover:text-primary hover:underline duration-300"
+        className="hover:underline duration-300"
         to="/about"
       >
         About
@@ -20,7 +20,7 @@ const navLinks = (
     </li>
     <li>
       <NavLink
-        className="hover:text-primary hover:underline duration-300"
+        className="hover:underline duration-300"
         to="/services"
       >
         Services
@@ -28,7 +28,7 @@ const navLinks = (
     </li>
     <li>
       <NavLink
-        className="hover:text-primary hover:underline duration-300"
+        className="hover:underline duration-300"
         to="/universities"
       >
         Universities
@@ -36,10 +36,10 @@ const navLinks = (
     </li>
     <li>
       <NavLink
-        className="hover:text-primary hover:underline duration-300"
-        to="/pricing"
+        className="hover:underline duration-300"
+        to="/contact"
       >
-        Pricing
+        Contact Us
       </NavLink>
     </li>
   </>
