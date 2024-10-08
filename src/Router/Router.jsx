@@ -15,6 +15,8 @@ import Courses from "../pages/Dashboard/Courses/Courses";
 import Applications from "../pages/Dashboard/Applications/Applications";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +49,11 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -57,23 +63,43 @@ const router = createBrowserRouter([
 
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <AdminRoute>
+            <Users />
+          </AdminRoute>
+        ),
       },
       {
         path: "countries",
-        element: <Countries />,
+        element: (
+          <AdminRoute>
+            <Countries />
+          </AdminRoute>
+        ),
       },
       {
         path: "universities",
-        element: <Universities />,
+        element: (
+          <AdminRoute>
+            <Universities />
+          </AdminRoute>
+        ),
       },
       {
         path: "courses",
-        element: <Courses />,
+        element: (
+          <AdminRoute>
+            <Courses />
+          </AdminRoute>
+        ),
       },
       {
         path: "applications",
-        element: <Applications />,
+        element: (
+          <AdminRoute>
+            <Applications />
+          </AdminRoute>
+        ),
       },
     ],
   },

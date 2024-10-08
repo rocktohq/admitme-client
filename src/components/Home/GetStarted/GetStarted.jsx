@@ -14,7 +14,7 @@ const GetStarted = () => {
           </span>{" "}
           forever. Upgrade when you need to.
         </p>
-        <Link className="mt-10" to={"/register"}>
+        <Link className="mt-10" to={"/signup"}>
           <Button primary text={"Get Started"} />
         </Link>
       </div>

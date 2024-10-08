@@ -7,8 +7,8 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   //   If user is not logged in
-  if (!user) return <Navigate state={location.pathname} to={"/signin"} />;
   if (loading) return <Loader />;
+  if (!user) return <Navigate state={location.pathname} to={"/signin"} />;
 
   return children;
 };
