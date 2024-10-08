@@ -31,14 +31,14 @@ const SignUp = () => {
 
       console.log(user);
       // Save userData => Database
-      // axiosPublic.post("/user", user);
+      await axiosPublic.post("/users", user);
 
       // Navigate after SignIn
-      toast.success("Sign in successful", { id: toastId });
+      toast.success("Sign up successful", { id: toastId });
       if (location?.state) navigate(`${location?.state}`);
       else navigate("/");
     } catch (error) {
-      toast.error("Error signing in user", { id: toastId });
+      toast.error("Error signing up user", { id: toastId });
       console.error(error);
     }
   };
@@ -48,7 +48,6 @@ const SignUp = () => {
     event.preventDefault();
 
     const form = event.target;
-    console.log(form.photo.files[0]);
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
@@ -87,6 +86,10 @@ const SignUp = () => {
     // If password length is less than 6
     else if (password.length < 6) {
       return toast.error("Password must be at least 6 characters long!");
+    }
+    // If password does not have atleast one uppercase letter
+    else if (!/[A-Z]/.test(password)) {
+      return toast.error("Password must have an uppercase letter!");
     }
     // If confirmPassword field is empty
     else if (confirmPassword === "") {
@@ -233,26 +236,25 @@ const SignUp = () => {
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 transition hover:bg-opacity-90 text-white"
                   />
                 </div>
-
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:hover:bg-opacity-50"
-                >
-                  <span>
-                    <FaGoogle />
-                  </span>
-                  Sign up with Google
-                </button>
-
-                <div className="mt-6 text-center">
-                  <p>
-                    {`Already have an account? `}
-                    <Link to="/signin" className="text-primary">
-                      Sign in
-                    </Link>
-                  </p>
-                </div>
               </form>
+              <button
+                onClick={handleGoogleSignIn}
+                className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:hover:bg-opacity-50"
+              >
+                <span>
+                  <FaGoogle />
+                </span>
+                Sign up with Google
+              </button>
+
+              <div className="mt-6 text-center">
+                <p>
+                  {`Already have an account? `}
+                  <Link to="/signin" className="text-primary">
+                    Sign in
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
