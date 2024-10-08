@@ -18,10 +18,8 @@ const Header = () => {
 
   return (
     <div
-      className={`w-full  ${
-        color
-          ? "fixed top-0 bg-black shadow-md transition-all duration-300 bg-opacity-20 backdrop-blur-sm"
-          : "bg-gray-100"
+      className={`w-full fixed top-0 shadow-md transition-all duration-500 z-20 ${
+        color ? "bg-black backdrop-blur-sm bg-opacity-20" : "bg-gradient-to-b from-slate-400 to-white"
       }`}
     >
       <ContainerFluid>
