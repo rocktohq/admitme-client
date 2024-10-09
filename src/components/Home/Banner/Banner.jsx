@@ -5,7 +5,7 @@ import Button from "../../shared/Button/Button";
 import PropTypes from "prop-types";
 import Container from "../../shared/Container/Container";
 
-const Banner = ({ centeredTitle }) => {
+const Banner = ({ centeredTitle, user }) => {
   return (
     <Container>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24">
@@ -18,7 +18,7 @@ const Banner = ({ centeredTitle }) => {
             subheading={`Looking to study abroad? We make university applications easy! Explore top universities worldwide, get personalized guidance, and apply with confidence. Let us help you turn your dream into reality.`}
           />
           <div className="mt-10">
-            <Link to={"/login"}>
+            <Link to={user?.email ? "/dashboard" : "/signin"}>
               <Button text={"Apply Now"} primary />
             </Link>
           </div>

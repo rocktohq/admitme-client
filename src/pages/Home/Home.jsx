@@ -7,8 +7,10 @@ import Separator from "../../components/shared/Separator/Separator";
 import Stats from "../../components/Home/Stats/Stats";
 import Partners from "../../components/Home/Partners/Partners";
 import JustRelax from "../../components/Home/JustRelax/JustRelax";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
+  const { user } = useAuth();
   const [color, setColor] = useState(false);
 
   // Color Changer
@@ -25,7 +27,7 @@ const Home = () => {
     <main className={color ? "mt-10 md:mt-16 lg:mt-20" : ""}>
       {/* Banner */}
       <Separator bg>
-        <Banner centeredTitle={false} />
+        <Banner centeredTitle={false} user={user} />
       </Separator>
 
       {/* TODO: Counter */}
@@ -51,7 +53,7 @@ const Home = () => {
 
       {/* Get Started */}
       <Separator bg>
-        <GetStarted />
+        <GetStarted user={user} />
       </Separator>
       {/* Stats */}
       <Separator>

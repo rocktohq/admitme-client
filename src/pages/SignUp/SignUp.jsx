@@ -13,13 +13,13 @@ const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
 const imgbbApiUrl = `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`;
 
 const SignUp = () => {
-  const { signUpUser, updateUserProfile } = useAuth();
+  const { googleSignIn, signUpUser, updateUserProfile } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   // SignUp with Google
   const handleGoogleSignIn = async () => {
-    const toastId = toast.loading("Sign in user...");
+    const toastId = toast.loading("Sign up user...");
     try {
       const res = await googleSignIn();
 
@@ -29,16 +29,19 @@ const SignUp = () => {
         photo: res?.user?.photoURL,
       };
 
-      console.log(user);
       // Save userData => Database
-      await axiosPublic.post("/users", user);
-
-      // Navigate after SignIn
-      toast.success("Sign up successful", { id: toastId });
+      const gRes = await axiosPublic.post("/users", user);
+      if (gRes.data.insertedId === null) {
+        toast.success("Account exits with this email, Sign in user!", {
+          id: toastId,
+        });
+      } else {
+        toast.success("Sign up successful", { id: toastId });
+      }
       if (location?.state) navigate(`${location?.state}`);
       else navigate("/");
     } catch (error) {
-      toast.error("Error signing up user", { id: toastId });
+      toast.error("Error signing up user!", { id: toastId });
       console.error(error);
     }
   };
@@ -53,15 +56,24 @@ const SignUp = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
     const photo = { image: form.photo.files[0] };
-
+    console.log(email);
     // * Validations
     // If all fields are empty
-    if (name === "" && photo === "" && email === "" && password === "") {
+    if (
+      name === "" &&
+      photo.image === undefined &&
+      email === "" &&
+      password === ""
+    ) {
       return toast.error("All fields are required!");
     }
     // If name field is empty
     else if (name === "") {
       return toast.error("Please provide your name!");
+    }
+    // If email field is empty
+    else if (email === "") {
+      return toast.error("Please provide your email!");
     }
     // If photo field is empty
     else if (
@@ -70,10 +82,6 @@ const SignUp = () => {
       photo.image === ""
     ) {
       return toast.error("Please upload your photo!");
-    }
-    // If email field is empty
-    else if (email === "") {
-      return toast.error("Please provide your email!");
     }
     // If email field is not valid
     else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
@@ -118,11 +126,11 @@ const SignUp = () => {
 
           const userRes = await axiosPublic.post("/users", user);
           if (!userRes.data.insertedId) {
-            toast.error("User alredy exists!", { id: toastId });
+            toast.error("User alredy exists with this email!", { id: toastId });
             return;
           }
 
-          toast.success("Registration success", { id: toastId });
+          toast.success("Registration successful", { id: toastId });
           navigate("/");
         } catch (error) {
           toast.error(error.message, { id: toastId });
@@ -135,8 +143,11 @@ const SignUp = () => {
   return (
     <div className="md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg mx-auto">
       <div className="rounded-sm border border-stroke bg-white shadow-default">
-        <div className="flex flex-wrap items-center">
+        <div className="flex flex-wrap items-center relative">
           <div className="hidden w-full xl:block xl:w-1/2">
+            <Link to={"/"} className="btn rounded absolute top-2 left-2">
+              &larr; Home
+            </Link>
             <div className="py-17.5 px-26 text-center">
               <p className="2xl:px-20">Signup to access your account.</p>
               <img src={signImage} alt="" className="w-[350px] h-[350px]" />
@@ -145,7 +156,12 @@ const SignUp = () => {
           </div>
           <div className="w-full border-stroke xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">SignUp Now!</span>
+              <Link to={"/"} className="btn rounded ml-2 mb-4 mt-2 xl:hidden">
+                &larr; Home
+              </Link>
+              <span className="mb-1.5 block font-medium text-xl text-center">
+                SignUp Now!
+              </span>
               <form onSubmit={handleSignUp} encType="multipart/form-data">
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium">Name</label>
