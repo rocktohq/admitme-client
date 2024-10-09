@@ -143,8 +143,11 @@ const SignUp = () => {
   return (
     <div className="md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg mx-auto">
       <div className="rounded-sm border border-stroke bg-white shadow-default">
-        <div className="flex flex-wrap items-center">
+        <div className="flex flex-wrap items-center relative">
           <div className="hidden w-full xl:block xl:w-1/2">
+            <Link to={"/"} className="btn rounded absolute top-2 left-2">
+              &larr; Home
+            </Link>
             <div className="py-17.5 px-26 text-center">
               <p className="2xl:px-20">Signup to access your account.</p>
               <img src={signImage} alt="" className="w-[350px] h-[350px]" />
@@ -153,7 +156,12 @@ const SignUp = () => {
           </div>
           <div className="w-full border-stroke xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">SignUp Now!</span>
+              <Link to={"/"} className="btn rounded ml-2 mb-4 mt-2 xl:hidden">
+                &larr; Home
+              </Link>
+              <span className="mb-1.5 block font-medium text-xl text-center">
+                SignUp Now!
+              </span>
               <form onSubmit={handleSignUp} encType="multipart/form-data">
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium">Name</label>
